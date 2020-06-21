@@ -25,6 +25,10 @@ class WebViewVC: UIViewController, WKNavigationDelegate  {
             webView.load(URLRequest(url: url))
             
         }
+        else
+        {
+            showErrorAlert(with: "Message", titile: "URL is not correct. Please scan QR code again")
+        }
     }
     
     override func loadView() {
