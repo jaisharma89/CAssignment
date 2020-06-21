@@ -1,0 +1,6 @@
+framework module Pods_CAssignment {
+  umbrella header "Pods-CAssignment-umbrella.h"
+
+  export *
+  module * { export * }
+}

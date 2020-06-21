@@ -1,0 +1,16 @@
+PODS:
+  - AnimatedField (2.4.4)
+
+DEPENDENCIES:
+  - AnimatedField
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AnimatedField
+
+SPEC CHECKSUMS:
+  AnimatedField: af48a2d59a50b33b30446267f7f2af274296203c
+
+PODFILE CHECKSUM: f7c9119829a41325185cc3c8ee069668d080e0f5
+
+COCOAPODS: 1.5.3
