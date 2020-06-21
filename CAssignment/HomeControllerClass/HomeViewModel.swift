@@ -25,12 +25,12 @@ class HomeViewModel: NSObject {
         let selectedTimeSlot = Utility.getSelectedTime(time:date + " " + time)
         
         webHandlerInstance.makeRequestWithServer(requestUrl, session: webHandlerInstance.session) { (result) in
-            do {
-                switch result
+            
+            switch result
+            {
+            case .Success(let data):
+                if  let recordsArr = try? JSONSerialization.jsonObject(with: data!, options: []) as? [AnyObject]
                 {
-                case .Success(let data):
-                    let recordsArr = try JSONSerialization.jsonObject(with: data!, options: []) as! [AnyObject]
-                    print(recordsArr)
                     for record in recordsArr
                     {
                         if let roomDetail = RoomDetailModal(roomDetail: record as! [String : AnyObject])
@@ -39,28 +39,26 @@ class HomeViewModel: NSObject {
                             self.records.append(roomDetail)
                         }
                     }
-                    if self.records.count > 0
-                    {
-                        self.records.sort { $0.level < $1.level }
-                        completionHandler(true ,nil)
-                    }
-                    else
-                    {
-                        completionHandler(false, .other)
-                    }
-                    
-                    break
-                case .Failure(let error):
-                    completionHandler(false,error)
-                    break
-                case .none:
+                }
+                
+                if self.records.count > 0
+                {
+                    self.records.sort { $0.level < $1.level }
+                    completionHandler(true ,nil)
+                }
+                else
+                {
                     completionHandler(false, .other)
                 }
-            }
-            catch _ as NSError
-            {
+                
+                break
+            case .Failure(let error):
+                completionHandler(false,error)
+                break
+            case .none:
                 completionHandler(false, .other)
             }
+            
         }
     }
     //Function Check Room availabilty with the given time  ,returns false if no value available for given time
